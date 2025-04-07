@@ -45,6 +45,19 @@ Once the seeds have been created the next step is to apply the code that will be
  	afl-fuzz -i in -d -o out ./simple @@
 I added in the -d aspect as it enables deterministic fuzzing, where AFL tries predefined strategies to mutate inputs systematically. Compared to random fuzzing, this ensures each mutation covers a new possible path in the program. 
 
+**Analysis**
+
+I ran the AFL fuzzing session on TCC for 12 hours and 57 minutes, allowing for deep exploration and maximizing the chance of uncovering complex bugs. During this time, 48 full fuzzing cycles were completed, meaning AFL thoroughly mutated and tested my input corpus multiple times.
+
+The session resulted in 161 unique corpus entries, each representing a distinct execution path through TCC. This shows that AFL effectively explored a wide variety of code paths, which is key to uncovering subtle vulnerabilities. Favored items were at 40.99%, indicating that a large portion of inputs triggered new or interesting behavior. These favored inputs help AFL prioritize mutations that are more likely to expose vulnerabilities. In addition, new edges were found at a rate of 46.58%, with 75 new branches discovered in total—demonstrating that nearly half of the possible code paths were exercised during the fuzz.
+
+![image](https://github.com/user-attachments/assets/8e7c7af4-88be-4ddd-ae08-0df0b90a133c)
+
+
+Although no crashes or hangs occurred, the 4.01 million total executions and the progress into stage 40/114 show that the fuzzer reached a deep testing phase. The combination of high coverage, numerous favored inputs, and newly discovered code paths suggests the fuzzing process was both thorough and effective.
+
+Overall, this was a strong and comprehensive fuzzing run, offering high confidence in TCC's stability and resilience under varied inputs.
+
 
 
 
